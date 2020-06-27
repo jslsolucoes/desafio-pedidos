@@ -2,12 +2,14 @@ package br.com.bluesoft.desafio.api.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import br.com.bluesoft.desafio.model.Pedido;
 import br.com.bluesoft.desafio.model.PedidoItem;
 import br.com.bluesoft.desafio.util.Lists;
+import br.com.bluesoft.desafio.util.Sets;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PedidoDto {
@@ -45,11 +47,16 @@ public class PedidoDto {
     public static PedidoDto converte(Pedido pedido) {
 	PedidoDto.Builder pedidoFornecedorDtoBuilder = PedidoDto.Builder.novoBuilder().comId(pedido.getId())
 		.comFornecedor(pedido.getFornecedor().getRazaoSocial());
-	for (PedidoItem pedidoItem : pedido.getItens()) {
+	for (PedidoItem pedidoItem : reorganizaItensPorNome(pedido.getItens())) {
 	    pedidoFornecedorDtoBuilder.comItem(pedidoItem.getProduto().getNome(), pedidoItem.getQuantidade(),
 		    pedidoItem.getValor());
 	}
 	return pedidoFornecedorDtoBuilder.constroi();
+    }
+
+    private static Set<PedidoItem> reorganizaItensPorNome(Set<PedidoItem> itens) {
+	return Sets.sort(itens, (pedidoItem1, pedidoItem2) -> pedidoItem2.getProduto().getNome()
+		.compareTo(pedidoItem1.getProduto().getNome()));
     }
 
     public static class Builder {

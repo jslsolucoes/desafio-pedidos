@@ -1,7 +1,9 @@
 package br.com.bluesoft.desafio.util;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class Sets {
 
@@ -18,6 +20,10 @@ public final class Sets {
 	    return newHashSet();
 	}
 	return set;
+    }
+
+    public static <T> Set<T> sort(Set<T> set, Comparator<T> comparator) {
+	return set.stream().sorted(comparator).collect(Collectors.toSet());
     }
 
 }

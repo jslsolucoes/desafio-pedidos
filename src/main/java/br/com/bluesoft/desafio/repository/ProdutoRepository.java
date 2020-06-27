@@ -13,7 +13,7 @@ import br.com.bluesoft.desafio.model.Produto;
 @Repository
 public interface ProdutoRepository extends CrudRepository<Produto, Long> {
 
-    @Query("select prod from Produto prod")
+    @Query("select prod from Produto prod order by prod.nome")
     public List<Produto> buscarPorTodosOsProdutosDisponiveis();
 
     @Query("select prod from Produto prod where prod.gtin = :gtin")

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bluesoft.desafio.api.NaoEncontradoException;
+import br.com.bluesoft.desafio.api.RecursoNaoEncontradoException;
 import br.com.bluesoft.desafio.api.RequisicaoInvalidaException;
 import br.com.bluesoft.desafio.api.dto.NovoPedidoDto;
 import br.com.bluesoft.desafio.api.dto.PedidoDto;
@@ -37,10 +37,10 @@ public class PedidoController {
     }
 
     @GetMapping(value = "/pedidos")
-    public ResponseEntity<List<PedidoDto>> listarPedidos() throws NaoEncontradoException {
+    public ResponseEntity<List<PedidoDto>> listarPedidos() throws RecursoNaoEncontradoException {
 	List<Pedido> pedidos = pedidoService.buscarPorTodosOsPedidosDisponiveis();
 	if (Lists.isEmpty(pedidos)) {
-	    throw new NaoEncontradoException("Não foi possível encontrar nenhum pedido cadastrado");
+	    throw new RecursoNaoEncontradoException("Não foi possível encontrar nenhum pedido cadastrado");
 	} else {
 	    return Responses.ok(Lists.transform(pedidos, PedidoDto::converte));
 	}

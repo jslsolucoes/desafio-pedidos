@@ -16,7 +16,7 @@ public interface FornecedorRepository extends CrudRepository<Fornecedor, Long> {
     public Optional<Fornecedor> buscarFornecedorPorCnpj(@Param("cnpj") String cnpj);
 
     public default Fornecedor criarUmNovoFornecedorSeNaoExistir(Fornecedor fornecedor) {
-	return buscarFornecedorPorCnpj(fornecedor.getCnpj()).orElse(save(fornecedor));
+	return buscarFornecedorPorCnpj(fornecedor.getCnpj()).orElseGet(() -> save(fornecedor));
     }
 
 }

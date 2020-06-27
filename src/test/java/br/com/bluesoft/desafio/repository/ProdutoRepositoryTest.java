@@ -32,4 +32,14 @@ public class ProdutoRepositoryTest extends AbstractTest {
 		(produto) -> "7891000053508".equals(produto.getGtin())));
     }
 
+    @Test
+    public void buscarsProdutoExistentePorGtin() {
+	assertTrue(produtoRepository.buscarProdutoPorGtin("7894900011517").isPresent());
+    }
+    
+    @Test
+    public void buscarsProdutoNaoExistentePorGtin() {
+	assertFalse(produtoRepository.buscarProdutoPorGtin("323").isPresent());
+    }
+
 }

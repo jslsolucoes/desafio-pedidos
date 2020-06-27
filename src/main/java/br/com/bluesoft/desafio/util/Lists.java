@@ -42,7 +42,7 @@ public class Lists {
     }
 
     public static <T> T reduce(List<T> list, BinaryOperator<T> reduce) {
-	return list.stream().reduce(reduce).get();
+	return list.stream().reduce(reduce).orElseThrow(() -> new IllegalStateException("Não foi possível reduzir a lista indicada com esse operador"));
     }
 
     @SafeVarargs

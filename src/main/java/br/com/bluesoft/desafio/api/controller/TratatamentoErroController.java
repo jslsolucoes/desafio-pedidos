@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bluesoft.desafio.api.response.RequisicaoInvalidaResponse;
 import br.com.bluesoft.desafio.api.RecursoNaoEncontradoException;
 import br.com.bluesoft.desafio.api.RequisicaoInvalidaException;
 import br.com.bluesoft.desafio.api.response.ErroInternoServidorResponse;
 import br.com.bluesoft.desafio.api.response.NaoEncontradoResponse;
+import br.com.bluesoft.desafio.api.response.RequisicaoInvalidaResponse;
 
 @RestController
 @ControllerAdvice

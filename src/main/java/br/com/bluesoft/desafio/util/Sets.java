@@ -1,5 +1,6 @@
 package br.com.bluesoft.desafio.util;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +10,14 @@ public final class Sets {
 
     private Sets() {
 	throw new IllegalStateException("You should not call this constructor");
+    }
+
+    @SafeVarargs
+    public static <T> Set<T> newHashSet(T... elements) {
+	if (elements == null) {
+	    return newHashSet();
+	}
+	return new HashSet<>(Arrays.asList(elements));
     }
 
     public static <T> Set<T> newHashSet() {

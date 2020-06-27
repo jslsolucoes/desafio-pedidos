@@ -37,7 +37,7 @@ public class PedidoController {
     }
 
     @GetMapping(value = "/pedidos")
-    public ResponseEntity<List<PedidoDto>> listarPedidos() throws RecursoNaoEncontradoException {
+    public ResponseEntity<List<PedidoDto>> buscarPorTodosOsPedidosDisponiveis() throws RecursoNaoEncontradoException {
 	List<Pedido> pedidos = pedidoService.buscarPorTodosOsPedidosDisponiveis();
 	if (Lists.isEmpty(pedidos)) {
 	    throw new RecursoNaoEncontradoException("Não foi possível encontrar nenhum pedido cadastrado");

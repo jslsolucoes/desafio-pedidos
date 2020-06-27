@@ -28,7 +28,7 @@ public class ProdutoDto {
     }
 
     public static ProdutoDto converte(Produto produto) {
-	return ProdutoDto.Builder.novoBuilder().comGtin(produto.getNome()).comNome(produto.getNome()).build();
+	return ProdutoDto.Builder.novoBuilder().comGtin(produto.getGtin()).comNome(produto.getNome()).build();
     }
 
     public static class Builder {

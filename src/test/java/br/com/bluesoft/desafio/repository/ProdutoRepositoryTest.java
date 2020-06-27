@@ -1,4 +1,4 @@
-package br.com.bluesoft.desafio.adapters.repo;
+package br.com.bluesoft.desafio.repository;
 
 import java.util.List;
 
@@ -10,15 +10,15 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.bluesoft.desafio.junit.AbstractBaseTest;
 import br.com.bluesoft.desafio.model.Produto;
-import br.com.bluesoft.desafio.repository.ProdutoRepository;
+import br.com.bluesoft.desafio.test.AbstractTest;
+import br.com.bluesoft.desafio.util.Lists;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional
 @Rollback
-public class ProdutoRepositoryTest extends AbstractBaseTest {
+public class ProdutoRepositoryTest extends AbstractTest {
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -28,6 +28,8 @@ public class ProdutoRepositoryTest extends AbstractBaseTest {
 	List<Produto> produtos = produtoRepository.buscarPorTodosOsProdutosDisponiveis();
 	assertNotNull(produtos);
 	assertEquals(7, produtos.size());
+	assertTrue(Lists.orAnyMatch(produtos, (produto) -> "7894900011517".equals(produto.getGtin()),
+		(produto) -> "7891000053508".equals(produto.getGtin())));
     }
 
 }

@@ -43,6 +43,18 @@ public class PedidoItem implements Serializable {
     @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 
+    public PedidoItem() {
+
+    }
+
+    public PedidoItem(Long id, BigDecimal valor, Integer quantidade, Produto produto, Pedido pedido) {
+	this.id = id;
+	this.valor = valor;
+	this.quantidade = quantidade;
+	this.produto = produto;
+	this.pedido = pedido;
+    }
+
     public Long getId() {
 	return id;
     }

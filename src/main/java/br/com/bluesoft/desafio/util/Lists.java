@@ -3,6 +3,7 @@ package br.com.bluesoft.desafio.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -34,13 +35,8 @@ public class Lists {
 	return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
     }
 
-    @SuppressWarnings("unchecked")
-    public static <C, T> List<C> cast(List<T> list) {
-	return list.stream().map(item -> (C) item).collect(Collectors.toList());
-    }
-
-    public static <C, T> List<C> cast(List<T> list, Class<C> clazz) {
-	return list.stream().map(item -> clazz.cast(item)).collect(Collectors.toList());
+    public static <T, R> List<R> transform(List<T> list, Function<T, R> map) {
+	return list.stream().map(map).collect(Collectors.toList());
     }
 
 }

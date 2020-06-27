@@ -1,6 +1,7 @@
 package br.com.bluesoft.desafio.test;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -21,6 +22,26 @@ public class AbstractTest {
 
     public <T> Matcher<T> is(T value) {
 	return Matchers.is(value);
+    }
+    
+    public String eq(String value) {
+	return Mockito.eq(value);
+    }
+    
+    public <T> T any(Class<T> clazz) {
+   	return Mockito.any(clazz);
+    }
+    
+    public String anyString() {
+   	return Mockito.anyString();
+    }
+    
+    public <K,V> Map<K,V> anyMap() {
+   	return Mockito.anyMap();
+    }
+
+    public <T> T any() {
+	return Mockito.any();
     }
 
     public <T> OngoingStubbing<T> when(T methodCall) {

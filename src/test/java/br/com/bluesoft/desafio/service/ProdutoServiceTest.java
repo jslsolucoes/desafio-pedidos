@@ -3,8 +3,6 @@ package br.com.bluesoft.desafio.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.NoResultException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,21 +42,21 @@ public class ProdutoServiceTest extends AbstractTest {
 	assertEquals(1, produtos.size());
 	assertEquals("1234", produtos.get(0).getGtin());
     }
-    
-    @Test(expected = NoResultException.class)
-    public void buscarProdutoPorGtinInexistente() {
+
+    @Test(expected = ProdutoServiceException.class)
+    public void buscarProdutoPorGtinInexistente() throws ProdutoServiceException {
 	Produto produto = new Produto(1L, "1234", "produto1");
 	when(produtoRepository.buscarProdutoPorGtin(anyString())).thenReturn(Optional.empty());
 	produtoService.buscarProdutoPorGtin(produto);
     }
-    
+
     @Test
-    public void buscarProdutoPorGtinValido() {
+    public void buscarProdutoPorGtinValido() throws ProdutoServiceException {
 	Produto produto = new Produto(1L, "1234", "produto1");
 	when(produtoRepository.buscarProdutoPorGtin(anyString())).thenReturn(Optional.of(produto));
 	Produto produtoCarregado = produtoService.buscarProdutoPorGtin(produto);
 	assertNotNull(produtoCarregado);
-	assertEquals("1234",produtoCarregado.getGtin());
+	assertEquals("1234", produtoCarregado.getGtin());
     }
 
 }

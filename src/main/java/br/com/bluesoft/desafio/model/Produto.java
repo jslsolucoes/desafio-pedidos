@@ -11,11 +11,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import br.com.bluesoft.desafio.api.dto.PedidoDto.Builder;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "produto")
 @SequenceGenerator(name = "produto_sq", initialValue = 1, allocationSize = 1, sequenceName = "produto_sq")
 public class Produto implements Serializable {
+
+    
 
     @Id
     @GeneratedValue(generator = "produto_sq", strategy = GenerationType.SEQUENCE)
@@ -61,6 +65,28 @@ public class Produto implements Serializable {
     public Produto setNome(String nome) {
 	this.nome = nome;
 	return this;
+    }
+    
+    public static class Builder {
+	
+	private String gtin;
+	
+	private Builder() {
+
+	}
+
+	public static Builder novoBuilder() {
+	    return new Builder();
+	}
+	
+	public Builder comGtin(String gtin) {
+	    this.gtin = gtin;
+	    return this;
+	}
+	
+	public Produto constroi() {
+	    return new Produto(null, gtin, null);
+	}
     }
 
 }

@@ -2,14 +2,13 @@ package br.com.bluesoft.desafio.service.impl;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.repository.ProdutoRepository;
 import br.com.bluesoft.desafio.service.ProdutoService;
+import br.com.bluesoft.desafio.service.ProdutoServiceException;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
@@ -31,9 +30,13 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public Produto buscarProdutoPorGtin(Produto produto) {
-	return produtoRepository.buscarProdutoPorGtin(produto.getGtin()).orElseThrow(() -> new NoResultException(
-		String.format("Não foi possível encontrar um produto com o código %s", produto.getGtin())));
+    public Produto buscarProdutoPorGtin(Produto produto) throws ProdutoServiceException {
+	try {
+	    return produtoRepository.buscarProdutoPorGtin(produto.getGtin()).orElseThrow(() -> new Exception(
+		    String.format("Não foi possível encontrar um produto com o código %s", produto.getGtin())));
+	} catch (Exception e) {
+	    throw new ProdutoServiceException(e.getMessage());
+	}
     }
 
 }

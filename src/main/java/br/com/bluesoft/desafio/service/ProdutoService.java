@@ -8,6 +8,6 @@ public interface ProdutoService {
 
     public List<Produto> buscarPorTodosOsProdutosDisponiveis();
 
-    public Produto buscarProdutoPorGtin(Produto produto);
+    public Produto buscarProdutoPorGtin(Produto produto) throws ProdutoServiceException;
 
 }

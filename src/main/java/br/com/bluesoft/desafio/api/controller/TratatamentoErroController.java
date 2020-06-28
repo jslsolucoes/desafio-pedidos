@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.bluesoft.desafio.api.RecursoNaoEncontradoException;
 import br.com.bluesoft.desafio.api.RequisicaoInvalidaException;
 import br.com.bluesoft.desafio.api.response.ErroInternoServidorResponse;
-import br.com.bluesoft.desafio.api.response.NaoEncontradoResponse;
+import br.com.bluesoft.desafio.api.response.RecursoNaoEncontradoResponse;
 import br.com.bluesoft.desafio.api.response.RequisicaoInvalidaResponse;
 
 @RestController
 @ControllerAdvice
 public class TratatamentoErroController {
 
+    
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErroInternoServidorResponse trataErroInterno(Exception exception) {
@@ -24,8 +25,8 @@ public class TratatamentoErroController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RecursoNaoEncontradoException.class)
-    public NaoEncontradoResponse trataRecursoNaoEncontrado(RecursoNaoEncontradoException naoEncontradoException) {
-	return new NaoEncontradoResponse(naoEncontradoException.getMessage());
+    public RecursoNaoEncontradoResponse trataRecursoNaoEncontrado(RecursoNaoEncontradoException naoEncontradoException) {
+	return new RecursoNaoEncontradoResponse(naoEncontradoException.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

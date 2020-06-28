@@ -13,7 +13,7 @@ import br.com.bluesoft.desafio.util.Lists;
 @Repository
 public interface PedidoRepository extends CrudRepository<Pedido, Long> {
 
-    @Query("select ped from Pedido ped inner join fetch ped.fornecedor for order by ped.id")
+    @Query("select ped from Pedido ped inner join fetch ped.fornecedor for order by ped.id desc")
     public List<Pedido> buscarPorTodosOsPedidosDisponiveis();
 
     public default List<Pedido> criarNovosPedidos(Collection<Pedido> pedidos) {

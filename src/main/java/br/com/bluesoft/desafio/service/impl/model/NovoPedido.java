@@ -1,20 +1,28 @@
 package br.com.bluesoft.desafio.service.impl.model;
 
+import br.com.bluesoft.desafio.model.Produto;
+
 public class NovoPedido {
 
-    private final String gtin;
+    private final Produto produto;
     private final Integer quantidade;
 
-    public NovoPedido(final String gtin, final Integer quantidade) {
-	this.gtin = gtin;
+    public NovoPedido(final Produto produto, final Integer quantidade) {
+	this.produto = produto;
 	this.quantidade = quantidade;
     }
 
-    public String getGtin() {
-	return gtin;
+    public Produto getProduto() {
+	return produto;
     }
 
     public Integer getQuantidade() {
 	return quantidade;
     }
+
+    @Override
+    public int hashCode() {
+	return produto.getGtin().hashCode();
+    }
+
 }

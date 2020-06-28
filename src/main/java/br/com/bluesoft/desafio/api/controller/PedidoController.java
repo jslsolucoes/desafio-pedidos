@@ -15,7 +15,7 @@ import br.com.bluesoft.desafio.api.RequisicaoInvalidaException;
 import br.com.bluesoft.desafio.api.dto.NovoPedidoDto;
 import br.com.bluesoft.desafio.api.dto.PedidoDto;
 import br.com.bluesoft.desafio.model.Pedido;
-import br.com.bluesoft.desafio.service.PedidoException;
+import br.com.bluesoft.desafio.service.PedidoServiceException;
 import br.com.bluesoft.desafio.service.PedidoService;
 import br.com.bluesoft.desafio.service.impl.model.NovoPedido;
 import br.com.bluesoft.desafio.util.Lists;
@@ -53,7 +53,7 @@ public class PedidoController {
 	    List<NovoPedido> novosPedidos = Lists.transform(Lists.newArrayList(novosPedidosDto),
 		    NovoPedidoDto::converter);
 	    return Responses.ok(Lists.transform(pedidoService.criarNovosPedidos(novosPedidos), PedidoDto::converte));
-	} catch (PedidoException pedidoException) {
+	} catch (PedidoServiceException pedidoException) {
 	    throw new RequisicaoInvalidaException(pedidoException.getMessage());
 	}
 

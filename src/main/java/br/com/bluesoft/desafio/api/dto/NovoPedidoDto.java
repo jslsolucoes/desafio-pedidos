@@ -1,5 +1,6 @@
 package br.com.bluesoft.desafio.api.dto;
 
+import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.service.impl.model.NovoPedido;
 
 public class NovoPedidoDto {
@@ -24,7 +25,8 @@ public class NovoPedidoDto {
     }
 
     public static NovoPedido converter(NovoPedidoDto novoPedidoDto) {
-	return new NovoPedido(novoPedidoDto.getGtin(), novoPedidoDto.getQuantidade());
+	return new NovoPedido(Produto.Builder.novoBuilder().comGtin(novoPedidoDto.getGtin()).constroi(),
+		novoPedidoDto.getQuantidade());
     }
 
 }

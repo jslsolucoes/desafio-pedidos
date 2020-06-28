@@ -8,7 +8,7 @@ public class NaoEncontradoResponseTest extends AbstractTest {
 
     @Test
     public void verificaMensagem() {
-	NaoEncontradoResponse naoEncontradoResponse = new NaoEncontradoResponse("mensagem1");
+	RecursoNaoEncontradoResponse naoEncontradoResponse = new RecursoNaoEncontradoResponse("mensagem1");
 	assertEquals("mensagem1",naoEncontradoResponse.getMensagem());
     }
 }

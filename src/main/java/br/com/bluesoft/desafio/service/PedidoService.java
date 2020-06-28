@@ -9,6 +9,6 @@ public interface PedidoService {
 
     public List<Pedido> buscarPorTodosOsPedidosDisponiveis();
 
-    public List<Pedido> criarNovosPedidos(List<NovoPedido> novosPedidos) throws PedidoException;
+    public List<Pedido> criarNovosPedidos(List<NovoPedido> novosPedidos) throws PedidoServiceException;
 
 }

@@ -32,7 +32,7 @@ public final class Sets {
     }
 
     public static <T> Set<T> sort(Set<T> set, Comparator<T> comparator) {
-	return set.stream().sorted(comparator).collect(Collectors.toSet());
+	return newHashSet(set).stream().sorted(comparator).collect(Collectors.toSet());
     }
 
 }

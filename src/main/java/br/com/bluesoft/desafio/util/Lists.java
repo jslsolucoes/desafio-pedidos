@@ -9,6 +9,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import br.com.bluesoft.desafio.model.bo.NovoPedido;
+
 public class Lists {
 
     private Lists() {
@@ -57,6 +59,10 @@ public class Lists {
 
     public static <T> boolean anyMatch(List<T> list, Predicate<T> predicate) {
 	return list.stream().anyMatch(predicate);
+    }
+
+    public static <T> boolean allMatch(List<T> list, Predicate<T> predicate) {
+	return list.stream().allMatch(predicate);
     }
 
 }

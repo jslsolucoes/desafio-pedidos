@@ -95,4 +95,44 @@ public class PedidoItem implements Serializable {
 	this.pedido = pedido;
     }
 
+    public static class Builder {
+
+	private Integer quantidade;
+	private Produto produto;
+	private BigDecimal valor;
+	private Pedido pedido;
+
+	private Builder() {
+
+	}
+
+	public static Builder novoBuilder() {
+	    return new Builder();
+	}
+
+	public Builder comQuantidade(Integer quantidade) {
+	    this.quantidade = quantidade;
+	    return this;
+	}
+
+	public Builder comProduto(Produto produto) {
+	    this.produto = produto;
+	    return this;
+	}
+
+	public Builder comValor(BigDecimal valor) {
+	    this.valor = valor;
+	    return this;
+	}
+
+	public PedidoItem constroi() {
+	    return new PedidoItem(null, valor, quantidade, produto, pedido);
+	}
+
+	public Builder comPedido(Pedido pedido) {
+	    this.pedido = pedido;
+	    return this;
+	}
+    }
+
 }

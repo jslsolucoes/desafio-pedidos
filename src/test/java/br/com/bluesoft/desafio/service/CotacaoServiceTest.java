@@ -12,8 +12,8 @@ import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.bluesoft.desafio.model.Produto;
-import br.com.bluesoft.desafio.service.impl.model.Cotacao;
-import br.com.bluesoft.desafio.service.impl.model.CotacaoPreco;
+import br.com.bluesoft.desafio.model.bo.Cotacao;
+import br.com.bluesoft.desafio.model.bo.CotacaoPreco;
 import br.com.bluesoft.desafio.test.AbstractTest;
 import br.com.bluesoft.desafio.util.Lists;
 

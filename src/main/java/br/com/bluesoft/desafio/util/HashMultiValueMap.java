@@ -2,6 +2,7 @@ package br.com.bluesoft.desafio.util;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class HashMultiValueMap<K, V> implements MultiValueMap<K, V> {
 
@@ -17,6 +18,11 @@ public class HashMultiValueMap<K, V> implements MultiValueMap<K, V> {
     @Override
     public List<V> get(K key) {
 	return map.get(key);
+    }
+
+    @Override
+    public Set<K> keySet() {
+	return map.keySet();
     }
 
 }

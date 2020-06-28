@@ -14,6 +14,8 @@ import br.com.bluesoft.desafio.model.Fornecedor;
 import br.com.bluesoft.desafio.model.Pedido;
 import br.com.bluesoft.desafio.model.PedidoItem;
 import br.com.bluesoft.desafio.model.Produto;
+import br.com.bluesoft.desafio.model.bo.Cotacao;
+import br.com.bluesoft.desafio.model.bo.NovoPedido;
 import br.com.bluesoft.desafio.repository.FornecedorRepository;
 import br.com.bluesoft.desafio.repository.PedidoItemRepository;
 import br.com.bluesoft.desafio.repository.PedidoRepository;
@@ -21,8 +23,6 @@ import br.com.bluesoft.desafio.repository.ProdutoRepository;
 import br.com.bluesoft.desafio.service.CotacaoService;
 import br.com.bluesoft.desafio.service.CotacaoServiceException;
 import br.com.bluesoft.desafio.service.PedidoServiceException;
-import br.com.bluesoft.desafio.service.impl.model.Cotacao;
-import br.com.bluesoft.desafio.service.impl.model.NovoPedido;
 import br.com.bluesoft.desafio.util.Lists;
 import br.com.bluesoft.desafio.util.Maps;
 

@@ -10,12 +10,12 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import br.com.bluesoft.desafio.model.Produto;
+import br.com.bluesoft.desafio.model.bo.Cotacao;
 import br.com.bluesoft.desafio.service.CotacaoService;
 import br.com.bluesoft.desafio.service.CotacaoServiceException;
 import br.com.bluesoft.desafio.service.RestClientService;
 import br.com.bluesoft.desafio.service.RestClientServiceException;
 import br.com.bluesoft.desafio.service.RestClientServiceResponseEntity;
-import br.com.bluesoft.desafio.service.impl.model.Cotacao;
 import br.com.bluesoft.desafio.util.Lists;
 import br.com.bluesoft.desafio.util.Maps;
 

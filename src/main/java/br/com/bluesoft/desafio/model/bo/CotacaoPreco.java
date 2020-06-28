@@ -1,4 +1,4 @@
-package br.com.bluesoft.desafio.service.impl.model;
+package br.com.bluesoft.desafio.model.bo;
 
 import java.math.BigDecimal;
 

@@ -66,10 +66,32 @@ public class Pedido implements Serializable {
     public Set<PedidoItem> getItens() {
 	return itens;
     }
-    
+
     public Pedido addItem(PedidoItem pedidoItem) {
 	itens = Sets.newHashMutableSet(itens).addItem(pedidoItem);
 	return this;
+    }
+
+    public static class Builder {
+
+	private Fornecedor fornecedor;
+
+	private Builder() {
+
+	}
+
+	public static Builder novoBuilder() {
+	    return new Builder();
+	}
+
+	public Builder comFornecedor(Fornecedor fornecedor) {
+	    this.fornecedor = fornecedor;
+	    return this;
+	}
+
+	public Pedido constroi() {
+	    return new Pedido(null, fornecedor, null);
+	}
     }
 
 }

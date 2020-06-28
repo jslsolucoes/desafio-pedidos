@@ -1,7 +1,7 @@
 package br.com.bluesoft.desafio.api.dto;
 
 import br.com.bluesoft.desafio.model.Produto;
-import br.com.bluesoft.desafio.service.impl.model.NovoPedido;
+import br.com.bluesoft.desafio.model.bo.NovoPedido;
 
 public class NovoPedidoDto {
 

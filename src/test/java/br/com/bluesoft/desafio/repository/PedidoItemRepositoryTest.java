@@ -1,7 +1,6 @@
 package br.com.bluesoft.desafio.repository;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,6 @@ import br.com.bluesoft.desafio.model.Pedido;
 import br.com.bluesoft.desafio.model.PedidoItem;
 import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.test.AbstractTest;
-import br.com.bluesoft.desafio.util.Lists;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -28,12 +26,10 @@ public class PedidoItemRepositoryTest extends AbstractTest {
 
     @Test
     public void criarNovoItemDePedido() {
-	List<PedidoItem> pedidoItens = Lists.newArrayList(
+	PedidoItem pedidoItem = pedidoItemRepository.criarNovo(
 		new PedidoItem(null, BigDecimal.TEN, 1, new Produto(1L, null, null), new Pedido(1L, null, null)));
-	List<PedidoItem> itensDePedido = pedidoItemRepository.criarNovosItensDePedido(pedidoItens);
-	assertNotNull(itensDePedido);
-	assertEquals(1, itensDePedido.size());
-	assertNotNull(itensDePedido.get(0).getId());
+	assertNotNull(pedidoItem);
+	assertNotNull(pedidoItem.getId());
     }
 
 }

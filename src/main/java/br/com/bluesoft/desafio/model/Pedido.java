@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
 
+import br.com.bluesoft.desafio.util.Sets;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "pedido")
@@ -63,6 +65,11 @@ public class Pedido implements Serializable {
 
     public Set<PedidoItem> getItens() {
 	return itens;
+    }
+    
+    public Pedido addItem(PedidoItem pedidoItem) {
+	itens = Sets.newHashMutableSet(itens).addItem(pedidoItem);
+	return this;
     }
 
 }

@@ -23,6 +23,7 @@ import br.com.bluesoft.desafio.service.CotacaoServiceException;
 import br.com.bluesoft.desafio.service.PedidoServiceException;
 import br.com.bluesoft.desafio.service.impl.model.Cotacao;
 import br.com.bluesoft.desafio.service.impl.model.NovoPedido;
+import br.com.bluesoft.desafio.util.Lists;
 import br.com.bluesoft.desafio.util.Maps;
 
 @Component
@@ -73,11 +74,10 @@ public class CriadorPedido {
 	    pedido.setFornecedor(fornecedor);
 	}
 	*/
-
 	Pedido pedido = pedidoRepository.save(new Pedido(null, fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(new Fornecedor(null, "00.000.000/0000-01", "razao1")), null));
-	pedidoItemRepository.save(new PedidoItem(null, BigDecimal.TEN, 10, buscarProduto(new Produto(null, "7894900011517", null)), pedido));
-	pedidoItemRepository.save(new PedidoItem(null, BigDecimal.valueOf(15.4), 5, buscarProduto(new Produto(null, "7891910007110", null)), pedido));
-	return Arrays.asList(pedido);
+	pedido.addItem(pedidoItemRepository.save(new PedidoItem(null, BigDecimal.TEN, 10, buscarProduto(new Produto(null, "7894900011517", null)), pedido)));
+	pedido.addItem(pedidoItemRepository.save(new PedidoItem(null, BigDecimal.valueOf(15.4), 5, buscarProduto(new Produto(null, "7891910007110", null)), pedido)));
+	return Lists.newArrayList(pedido);
     }
     
     private Produto buscarProduto(Produto produto) throws PedidoServiceException {

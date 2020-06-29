@@ -9,8 +9,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import br.com.bluesoft.desafio.model.bo.NovoPedido;
-
 public class Lists {
 
     private Lists() {
@@ -44,7 +42,8 @@ public class Lists {
     }
 
     public static <T> T reduce(List<T> list, BinaryOperator<T> reduce) {
-	return list.stream().reduce(reduce).orElseThrow(() -> new IllegalStateException("Não foi possível reduzir a lista indicada com esse operador"));
+	return list.stream().reduce(reduce).orElseThrow(
+		() -> new IllegalStateException("Não foi possível reduzir a lista indicada com esse operador"));
     }
 
     @SafeVarargs
@@ -63,6 +62,10 @@ public class Lists {
 
     public static <T> boolean allMatch(List<T> list, Predicate<T> predicate) {
 	return list.stream().allMatch(predicate);
+    }
+
+    public static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
+	return list.stream().filter(predicate).collect(Collectors.toList());
     }
 
 }

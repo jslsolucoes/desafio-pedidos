@@ -3,7 +3,9 @@ package br.com.bluesoft.desafio.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,16 +29,24 @@ public class CotacaoServiceTest extends AbstractTest {
 
     @MockBean
     private RestClientService restClientService;
+    
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
-    @Test(expected = CotacaoServiceException.class)
+    @Test
     public void forcarRetryComProblemaDeComunicacao() throws CotacaoServiceException, RestClientServiceException {
+	expectedException.expectMessage("Não foi possível verificar cotações para o produto gtin \"1234\" pois a integração de sistemas falhou. Você pode tentar novamente daqui alguns instantes. Caso o problema persista entre em contato com o setor técnico para averiguação . Detalhes do erro: Erro de comunicação: java.lang.Exception: some exception");
+	expectedException.expect(CotacaoServiceException.class);
 	when(restClientService.getForEntity(anyString(), any(), anyMap()))
 		.thenThrow(new RestClientServiceException(new Exception("some exception")));
 	cotacaoService.realizaCotacoesParaProduto(new Produto(null, "1234", null));
     }
 
-    @Test(expected = CotacaoServiceException.class)
+    @Test
     public void forcarRetryComProblemaDeStatusCode() throws CotacaoServiceException, RestClientServiceException {
+	expectedException.expectMessage("Não foi possível verificar cotações para o produto gtin \"1234\" pois a integração de sistemas falhou. Você pode tentar novamente daqui alguns instantes. Caso o problema persista entre em contato com o setor técnico para averiguação . Detalhes do erro: Status code não esperado: 400");
+	expectedException.expect(CotacaoServiceException.class);
+	
 	when(restClientService.getForEntity(anyString(), any(), anyMap()))
 		.thenReturn(new BadRequestRestClientServiceResponseEntity());
 	cotacaoService.realizaCotacoesParaProduto(new Produto(null, "1234", null));
@@ -95,3 +105,4 @@ public class CotacaoServiceTest extends AbstractTest {
     }
 
 }
+

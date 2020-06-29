@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface RestClientService {
 
-    public <T> RestClientServiceResponseEntity<T> getForEntity(String url, Class<T> responseType, Map<String, ?> uriVariables)
-	    throws RestClientServiceException;
+    public <T> RestClientServiceResponseEntity<T> getForEntity(String url, Class<T> responseType,
+	    Map<String, ?> uriVariables) throws RestClientServiceException;
 
 }

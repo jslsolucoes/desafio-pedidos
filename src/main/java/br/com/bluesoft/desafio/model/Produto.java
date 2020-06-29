@@ -66,6 +66,7 @@ public class Produto implements Serializable {
     public static class Builder {
 
 	private String gtin;
+	private String nome;
 
 	private Builder() {
 
@@ -81,7 +82,12 @@ public class Produto implements Serializable {
 	}
 
 	public Produto constroi() {
-	    return new Produto(null, gtin, null);
+	    return new Produto(null, gtin, nome);
+	}
+
+	public Builder comNome(String nome) {
+	    this.nome = nome;
+	    return this;
 	}
     }
 

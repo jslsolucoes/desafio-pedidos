@@ -11,8 +11,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import br.com.bluesoft.desafio.model.Produto.Builder;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "fornecedor")
@@ -64,7 +62,32 @@ public class Fornecedor implements Serializable {
 	this.razaoSocial = razaoSocial;
 	return this;
     }
-    
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Fornecedor other = (Fornecedor) obj;
+	if (cnpj == null) {
+	    if (other.cnpj != null)
+		return false;
+	} else if (!cnpj.equals(other.cnpj))
+	    return false;
+	return true;
+    }
+
     public static class Builder {
 
 	private String cnpj;
@@ -82,7 +105,7 @@ public class Fornecedor implements Serializable {
 	    this.cnpj = cnpj;
 	    return this;
 	}
-	
+
 	public Builder comRazaoSocial(String razaoSocial) {
 	    this.razaoSocial = razaoSocial;
 	    return this;

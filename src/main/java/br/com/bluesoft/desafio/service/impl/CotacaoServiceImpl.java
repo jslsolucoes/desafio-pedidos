@@ -36,7 +36,7 @@ public class CotacaoServiceImpl implements CotacaoService {
     @Override
     @Retryable(maxAttempts = 3, backoff = @Backoff(delay = 3000))
     public List<Cotacao> realizaCotacoesParaProduto(Produto produto) throws CotacaoServiceException {
-	String errorMessageTemplate = "Não foi possível verificar cotações para o produto gtin \"%s\" pois a integração de sistemas falhou. Você pode tentar novamente daqui alguns instantes. Caso o problema persista entre em contato com o setor técnico para averiguação . Detalhes do erro: %s";
+	String errorTemplate = "Não foi possível verificar cotações para o produto gtin \"%s\" pois a integração de sistemas falhou. Você pode tentar novamente daqui alguns instantes. Caso o problema persista entre em contato com o setor técnico para averiguação . Detalhes do erro: %s";
 	try {
 	    Map<String, String> parameters = Maps.of("gtin", produto.getGtin());
 	    RestClientServiceResponseEntity<Cotacao[]> responseEntity = restClientService.getForEntity(
@@ -47,11 +47,10 @@ public class CotacaoServiceImpl implements CotacaoService {
 		return Lists.newArrayList(responseEntity.getBody());
 	    }
 	    throw new CotacaoServiceException(
-		    String.format(errorMessageTemplate, produto.getGtin(), "Status code não esperado: " + statusCode));
+		    String.format(errorTemplate, produto.getGtin(), "Status code não esperado: " + statusCode));
 	} catch (RestClientServiceException exception) {
-	    throw new CotacaoServiceException(String.format(errorMessageTemplate, produto.getGtin(),
-		    "Erro de comunicação: " + exception.getMessage()));
+	    throw new CotacaoServiceException(
+		    String.format(errorTemplate, produto.getGtin(), "Erro de comunicação: " + exception.getMessage()));
 	}
     }
-
 }

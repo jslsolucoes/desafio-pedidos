@@ -10,10 +10,6 @@ public final class Maps {
 	throw new IllegalStateException("You should not call this constructor");
     }
 
-    public static <K, V> MultiValueMap<K, V> newHashMultiValueMap() {
-	return new HashMultiValueMap<K, V>();
-    }
-
     public static <K, V> Map<K, V> newHashMap() {
 	return new HashMap<>();
     }

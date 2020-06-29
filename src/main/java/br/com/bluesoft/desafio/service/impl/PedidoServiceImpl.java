@@ -70,10 +70,9 @@ public class PedidoServiceImpl implements PedidoService {
 		for (PedidoItem pedidoItem : pedidosPorFornecedor.get(fornecedor)) {
 		    pedido.addItem(pedidoItemRepository.criarNovo(PedidoItem.Builder.novoBuilder()
 			    .comProduto(produtoRepository.buscarProdutoPorGtin(pedidoItem.getProduto().getGtin())
-				    .orElseThrow(() -> new PedidoServiceException("Não foi possível encontrar produto com gtin")))
-			    .comQuantidade(pedidoItem.getQuantidade())
-			    .comValor(pedidoItem.getValor())
-			    .comPedido(pedido)
+				    .orElseThrow(() -> new PedidoServiceException(
+					    "Não foi possível encontrar produto com gtin")))
+			    .comQuantidade(pedidoItem.getQuantidade()).comValor(pedidoItem.getValor()).comPedido(pedido)
 			    .constroi()));
 		}
 		pedidos.add(pedido);
@@ -87,7 +86,7 @@ public class PedidoServiceImpl implements PedidoService {
     private Map<Fornecedor, List<PedidoItem>> geraPedidosPorFornecedor(List<NovoPedido> novosPedidos)
 	    throws CotacaoServiceException {
 
-	// Como a lista de itens pode ser muito longa o ideial é executá-las em paralelo
+	// Como a lista de itens pode ser muito longa o ideal é executá-la em paralelo
 	// e concorrentemente. A premissa de execução nesse caso é positivista e
 	// assume-se que não atender a quantidades mínimas sejam exceção e não a regra.
 	// No melhor caso o tempo total de execucao é O(n)/numThreads e no pior caso a
@@ -105,7 +104,7 @@ public class PedidoServiceImpl implements PedidoService {
 	try {
 	    Integer quantidade = novoPedido.getQuantidade();
 	    Produto produto = novoPedido.getProduto();
-	    Cotacao cotacao = cotacaoServiceClassificador.melhorProposta(produto, quantidade);
+	    Cotacao cotacao = cotacaoServiceClassificador.melhorCotacao(produto, quantidade);
 	    BigDecimal melhorPreco = cotacao.getMelhorPreco(produto, quantidade);
 	    Fornecedor fornecedor = cotacao.getFornecedor();
 	    PedidoItem pedidoItem = PedidoItem.Builder.novoBuilder().comProduto(produto).comQuantidade(quantidade)

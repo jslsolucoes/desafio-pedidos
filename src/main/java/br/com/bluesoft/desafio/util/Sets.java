@@ -19,7 +19,6 @@ public final class Sets {
 	}
 	return new HashSet<>(Arrays.asList(elements));
     }
-    
 
     public static <T> MutableSet<T> newHashMutableSet(Set<T> set) {
 	if (set == null) {
@@ -27,7 +26,7 @@ public final class Sets {
 	}
 	return new HashMutableSet<T>(set);
     }
-    
+
     public static <T> MutableSet<T> newHashMutableSet() {
 	return new HashMutableSet<T>();
     }

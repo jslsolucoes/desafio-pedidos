@@ -11,6 +11,15 @@ public class CotacaoPreco {
     @JsonProperty("quantidade_minima")
     private Integer quantidadeMinima;
 
+    public CotacaoPreco() {
+
+    }
+
+    public CotacaoPreco(BigDecimal preco, Integer quantidadeMinima) {
+	this.preco = preco;
+	this.quantidadeMinima = quantidadeMinima;
+    }
+
     public BigDecimal getPreco() {
 	return preco;
     }
@@ -25,6 +34,10 @@ public class CotacaoPreco {
 
     public void setQuantidadeMinima(Integer quantidadeMinima) {
 	this.quantidadeMinima = quantidadeMinima;
+    }
+
+    public Boolean atendeQuantidadeMinimima(Integer quantidade) {
+	return quantidadeMinima <= quantidade;
     }
 
 }

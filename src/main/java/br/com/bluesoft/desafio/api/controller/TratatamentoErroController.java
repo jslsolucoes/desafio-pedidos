@@ -16,7 +16,6 @@ import br.com.bluesoft.desafio.api.response.RequisicaoInvalidaResponse;
 @ControllerAdvice
 public class TratatamentoErroController {
 
-    
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErroInternoServidorResponse trataErroInterno(Exception exception) {
@@ -25,7 +24,8 @@ public class TratatamentoErroController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RecursoNaoEncontradoException.class)
-    public RecursoNaoEncontradoResponse trataRecursoNaoEncontrado(RecursoNaoEncontradoException naoEncontradoException) {
+    public RecursoNaoEncontradoResponse trataRecursoNaoEncontrado(
+	    RecursoNaoEncontradoException naoEncontradoException) {
 	return new RecursoNaoEncontradoResponse(naoEncontradoException.getMessage());
     }
 

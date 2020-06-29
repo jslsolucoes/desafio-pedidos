@@ -5,6 +5,6 @@ import br.com.bluesoft.desafio.model.bo.Cotacao;
 
 public interface CotacaoServiceClassificador {
 
-    public Cotacao melhorProposta(Produto produto,Integer quantidade) throws CotacaoServiceException;
-    
+    public Cotacao melhorCotacao(Produto produto, Integer quantidade) throws CotacaoServiceException;
+
 }

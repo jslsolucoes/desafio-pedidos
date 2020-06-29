@@ -26,10 +26,11 @@ public class RestClientServiceImpl implements RestClientService {
     }
 
     @Override
-    public <T> RestClientServiceResponseEntity<T> getForEntity(String url, Class<T> responseType, Map<String, ?> uriVariables)
-	    throws RestClientServiceException {
+    public <T> RestClientServiceResponseEntity<T> getForEntity(String url, Class<T> responseType,
+	    Map<String, ?> uriVariables) throws RestClientServiceException {
 	try {
-	    return new RestClientServiceResponseEntityImpl<T>(restTemplate.getForEntity(url, responseType, uriVariables));
+	    return new RestClientServiceResponseEntityImpl<T>(
+		    restTemplate.getForEntity(url, responseType, uriVariables));
 	} catch (RestClientException e) {
 	    throw new RestClientServiceException(e);
 	}

@@ -7,11 +7,11 @@ import java.util.Set;
 public class HashMutableSet<T> implements MutableSet<T> {
 
     private Set<T> set = Sets.newHashSet();;
-    
+
     public HashMutableSet() {
-	
+
     }
-    
+
     public HashMutableSet(Set<T> set) {
 	this.set.addAll(set);
     }
@@ -81,10 +81,5 @@ public class HashMutableSet<T> implements MutableSet<T> {
     public void clear() {
 	set.clear();
     }
-    
-   
-   
-
-    
 
 }

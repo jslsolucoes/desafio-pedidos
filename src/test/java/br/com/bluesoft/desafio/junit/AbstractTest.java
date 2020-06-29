@@ -42,6 +42,10 @@ public class AbstractTest {
    	return Mockito.any(clazz);
     }
     
+    public Integer anyInt() {
+   	return Mockito.anyInt();
+    }
+    
     public String anyString() {
    	return Mockito.anyString();
     }

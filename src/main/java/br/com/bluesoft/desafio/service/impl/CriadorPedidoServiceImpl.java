@@ -53,7 +53,7 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
     @Override
     public List<Pedido> criarNovosPedidos(List<NovoPedido> novosPedidos) throws PedidoServiceException {
 	try {
-	    List<NovoPedido> novosPedidosValidados = validar(novosPedidos);
+	    List<NovoPedido> novosPedidosValidados = validarNovosPedidos(novosPedidos);
 	    Map<Fornecedor, List<PedidoItem>> pedidosPorFornecedor = geraPedidosPorFornecedor(novosPedidosValidados);
 	    List<Pedido> pedidos = Lists.newArrayList();
 	    for (Fornecedor fornecedor : pedidosPorFornecedor.keySet()) {
@@ -61,26 +61,34 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 			.comFornecedor(fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(fornecedor)).constroi());
 		for (PedidoItem pedidoItem : pedidosPorFornecedor.get(fornecedor)) {
 		    pedido.addItem(pedidoItemRepository.criarNovo(PedidoItem.Builder.novoBuilder()
-			    .comProduto(produtoRepository.buscarProdutoPorGtin(pedidoItem.getProduto().getGtin())
-				    .orElseThrow(() -> new PedidoServiceException(
-					    "Não foi possível encontrar produto com gtin")))
-			    .comQuantidade(pedidoItem.getQuantidade()).comValor(pedidoItem.getValor()).comPedido(pedido)
-			    .constroi()));
+			    .comProduto(pedidoItem.getProduto()).comQuantidade(pedidoItem.getQuantidade())
+			    .comValor(pedidoItem.getValor()).comPedido(pedido).constroi()));
 		}
 		pedidos.add(pedido);
 	    }
 	    return pedidos;
-	} catch (CotacaoServiceException e) {
+	} catch (Exception e) {
 	    throw new PedidoServiceException(e.getMessage());
 	}
     }
 
-    private List<NovoPedido> validar(List<NovoPedido> novosPedidos) throws PedidoServiceException {
+    private List<NovoPedido> validarNovosPedidos(List<NovoPedido> novosPedidos) throws PedidoServiceException {
 	if (Lists.allMatch(novosPedidos, novoPedido -> novoPedido.getQuantidade() == 0)) {
 	    throw new PedidoServiceException(
 		    "Ao menos um produto deve ser solicitado para a criação de um novo pedido");
 	}
-	return Lists.filter(novosPedidos, novoPedido -> novoPedido.getQuantidade() > 0);
+	return novosPedidos.stream().filter(novoPedido -> novoPedido.getQuantidade() > 0)
+		.map(novoPedido -> novoPedido.setProduto(buscarProduto(novoPedido.getProduto())))
+		.collect(Collectors.toList());
+    }
+
+    private Produto buscarProduto(Produto produto) {
+	try {
+	    return produtoRepository.buscarProdutoPorGtin(produto.getGtin())
+		    .orElseThrow(() -> new PedidoServiceException("Não foi possível encontrar produto com gtin"));
+	} catch (PedidoServiceException e) {
+	    throw new RuntimeException(e);
+	}
     }
 
     private Map<Fornecedor, List<PedidoItem>> geraPedidosPorFornecedor(List<NovoPedido> novosPedidos)

@@ -4,7 +4,7 @@ import br.com.bluesoft.desafio.model.Produto;
 
 public class NovoPedido {
 
-    private final Produto produto;
+    private Produto produto;
     private final Integer quantidade;
 
     public NovoPedido(final Produto produto, final Integer quantidade) {
@@ -16,13 +16,13 @@ public class NovoPedido {
 	return produto;
     }
 
-    public Integer getQuantidade() {
-	return quantidade;
+    public NovoPedido setProduto(Produto produto) {
+	this.produto = produto;
+	return this;
     }
 
-    @Override
-    public int hashCode() {
-	return produto.getGtin().hashCode();
+    public Integer getQuantidade() {
+	return quantidade;
     }
 
 }

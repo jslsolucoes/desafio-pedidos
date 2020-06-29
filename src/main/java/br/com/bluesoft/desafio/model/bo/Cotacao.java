@@ -49,10 +49,11 @@ public class Cotacao {
     }
 
     public BigDecimal getMelhorPreco(Produto produto, Integer quantidade) throws CotacaoServiceException {
-	return new BigDecimal(precos.stream().filter(cotacaoPreco -> cotacaoPreco.atendeQuantidadeMinimima(quantidade))
-		.mapToDouble(cotacaoPreco -> cotacaoPreco.getPreco().doubleValue()).min()
-		.orElseThrow(() -> new CotacaoServiceException(
-			"Não foi possível calcular o menor preço para o produto " + produto.getGtin())));
+	return BigDecimal
+		.valueOf(precos.stream().filter(cotacaoPreco -> cotacaoPreco.atendeQuantidadeMinimima(quantidade))
+			.mapToDouble(cotacaoPreco -> cotacaoPreco.getPreco().doubleValue()).min()
+			.orElseThrow(() -> new CotacaoServiceException(
+				"Não foi possível calcular o menor preço para o produto " + produto.getGtin())));
     }
 
     public Fornecedor getFornecedor() {

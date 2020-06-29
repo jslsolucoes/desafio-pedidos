@@ -5,11 +5,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.model.Fornecedor;
 import br.com.bluesoft.desafio.model.Pedido;
 import br.com.bluesoft.desafio.model.PedidoItem;
 import br.com.bluesoft.desafio.model.Produto;
-import br.com.bluesoft.desafio.test.AbstractTest;
 import br.com.bluesoft.desafio.util.Sets;
 
 public class PedidoDtoTest extends AbstractTest {

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import br.com.bluesoft.desafio.api.controller.TratatamentoErroController;
 import br.com.bluesoft.desafio.api.response.ErroInternoServidorResponse;
-import br.com.bluesoft.desafio.test.AbstractTest;
+import br.com.bluesoft.desafio.junit.AbstractTest;
 
 public class TratamentoErroControllerTest extends AbstractTest {
 

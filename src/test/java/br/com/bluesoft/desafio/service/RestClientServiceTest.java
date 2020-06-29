@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.bluesoft.desafio.test.AbstractTest;
+import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.util.Maps;
 
 @RunWith(SpringRunner.class)

@@ -33,9 +33,8 @@ public class CotacaoServiceImpl implements CotacaoService {
 	this.restClientService = restClientService;
     }
 
-    @Override
     @Retryable(maxAttempts = 3, backoff = @Backoff(delay = 3000))
-    public List<Cotacao> realizaCotacoesParaProduto(Produto produto) throws CotacaoServiceException {
+    private List<Cotacao> realizaCotacoesParaProduto(Produto produto) throws CotacaoServiceException {
 	String errorTemplate = "Não foi possível verificar cotações para o produto gtin \"%s\" pois a integração de sistemas falhou. Você pode tentar novamente daqui alguns instantes. Caso o problema persista entre em contato com o setor técnico para averiguação . Detalhes do erro: %s";
 	try {
 	    Map<String, String> parameters = Maps.of("gtin", produto.getGtin());
@@ -51,6 +50,24 @@ public class CotacaoServiceImpl implements CotacaoService {
 	} catch (RestClientServiceException exception) {
 	    throw new CotacaoServiceException(
 		    String.format(errorTemplate, produto.getGtin(), "Erro de comunicação: " + exception.getMessage()));
+	}
+    }
+
+    @Override
+    public Cotacao melhorCotacao(Produto produto, Integer quantidade) throws CotacaoServiceException {
+	return realizaCotacoesParaProduto(produto).stream()
+		.filter(cotacao -> cotacao.atendeQuantidadeMinimima(quantidade))
+		.sorted((cotacao1, cotacao2) -> menorValor(produto, quantidade, cotacao1, cotacao2)).findFirst()
+		.orElseThrow(() -> new CotacaoServiceException(
+			"Nenhum fornecedor encontrado para a quantidade solicitada do produto " + produto.getNome()));
+    }
+
+    private Integer menorValor(Produto produto, Integer quantidade, Cotacao cotacao1, Cotacao cotacao2)
+	    throws RuntimeException {
+	try {
+	    return cotacao1.getMelhorPreco(produto, quantidade).compareTo(cotacao2.getMelhorPreco(produto, quantidade));
+	} catch (Exception e) {
+	    throw new RuntimeException(e);
 	}
     }
 }

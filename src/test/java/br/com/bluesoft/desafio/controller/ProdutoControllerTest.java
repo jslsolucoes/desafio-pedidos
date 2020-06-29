@@ -13,9 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.bluesoft.desafio.api.RecursoNaoEncontradoException;
 import br.com.bluesoft.desafio.api.controller.ProdutoController;
 import br.com.bluesoft.desafio.api.dto.ProdutoDto;
+import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.service.ProdutoService;
-import br.com.bluesoft.desafio.test.AbstractTest;
 import br.com.bluesoft.desafio.util.Lists;
 
 @RunWith(SpringRunner.class)

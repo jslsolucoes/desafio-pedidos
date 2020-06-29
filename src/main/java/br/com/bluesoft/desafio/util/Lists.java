@@ -17,8 +17,9 @@ public class Lists {
 
     @SafeVarargs
     public static <T> List<T> newArrayList(T... elements) {
-	if (elements == null)
-	    newArrayList();
+	if (elements == null || elements.length == 0) {
+	    return newArrayList();
+	}
 	return new ArrayList<>(Arrays.asList(elements));
     }
 

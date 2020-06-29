@@ -8,6 +8,15 @@ public class NovoPedidoDto {
     private String gtin;
     private Integer quantidade;
 
+    public NovoPedidoDto() {
+
+    }
+
+    public NovoPedidoDto(String gtin, Integer quantidade) {
+	this.gtin = gtin;
+	this.quantidade = quantidade;
+    }
+
     public String getGtin() {
 	return gtin;
     }
@@ -27,6 +36,34 @@ public class NovoPedidoDto {
     public static NovoPedido converter(NovoPedidoDto novoPedidoDto) {
 	return new NovoPedido(Produto.Builder.novoBuilder().comGtin(novoPedidoDto.getGtin()).constroi(),
 		novoPedidoDto.getQuantidade());
+    }
+
+    public static class Builder {
+
+	private String gtin;
+	private Integer quantidade;
+
+	private Builder() {
+
+	}
+
+	public static Builder novoBuilder() {
+	    return new Builder();
+	}
+
+	public Builder comGtin(String gtin) {
+	    this.gtin = gtin;
+	    return this;
+	}
+
+	public Builder comQuantidade(Integer quantidade) {
+	    this.quantidade = quantidade;
+	    return this;
+	}
+
+	public NovoPedidoDto constroi() {
+	    return new NovoPedidoDto(gtin, quantidade);
+	}
     }
 
 }

@@ -1,4 +1,4 @@
-package br.com.bluesoft.desafio.controller.mvc;
+package br.com.bluesoft.desafio.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +9,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import br.com.bluesoft.desafio.junit.AbstractControllerApiTest;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProdutoControllerMvcTest extends AbstractControllerMvcTest {
+public class ProdutoControllerApiTest extends AbstractControllerApiTest {
 
     @Autowired
     private MockMvc mockMvc;

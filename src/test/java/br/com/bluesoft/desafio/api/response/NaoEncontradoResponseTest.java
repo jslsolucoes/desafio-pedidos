@@ -2,7 +2,7 @@ package br.com.bluesoft.desafio.api.response;
 
 import org.junit.Test;
 
-import br.com.bluesoft.desafio.test.AbstractTest;
+import br.com.bluesoft.desafio.junit.AbstractTest;
 
 public class NaoEncontradoResponseTest extends AbstractTest {
 

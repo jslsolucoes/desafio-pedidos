@@ -47,8 +47,8 @@ public class PedidoController {
     }
 
     @PostMapping(value = "/pedidos")
-    public ResponseEntity<List<PedidoDto>> criarNovosPedidos(@RequestBody NovoPedidoDto[] novosPedidosDto)
-	    throws RequisicaoInvalidaException {
+    public ResponseEntity<List<PedidoDto>> criarNovosPedidos(
+	    @RequestBody(required = false) NovoPedidoDto[] novosPedidosDto) throws RequisicaoInvalidaException {
 	try {
 	    List<NovoPedido> novosPedidos = Lists.transform(Lists.newArrayList(novosPedidosDto),
 		    NovoPedidoDto::converter);

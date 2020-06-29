@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class HashMutableSet<T> implements MutableSet<T> {
 
-    private Set<T> set = Sets.newHashSet();;
+    private Set<T> set = Sets.newHashSet();
 
     public HashMutableSet() {
 

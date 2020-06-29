@@ -10,8 +10,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.model.Pedido;
-import br.com.bluesoft.desafio.test.AbstractTest;
 import br.com.bluesoft.desafio.util.Lists;
 
 @RunWith(SpringRunner.class)

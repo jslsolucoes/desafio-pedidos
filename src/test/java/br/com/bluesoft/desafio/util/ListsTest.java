@@ -12,6 +12,15 @@ import org.junit.Test;
 
 public class ListsTest {
 
+    
+    @Test
+    public void criaListaVaziaComArrayNulo() {
+	Object[] arrayOfObjects = null;
+	List<Object> objects = Lists.newArrayList(arrayOfObjects);
+	assertNotNull(objects);
+	assertTrue(objects.isEmpty());
+    }
+    
     @Test
     public void criaListaVazia() {
 	List<Object> objects = Lists.newArrayList();

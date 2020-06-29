@@ -15,12 +15,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.bluesoft.desafio.api.RecursoNaoEncontradoException;
 import br.com.bluesoft.desafio.api.controller.PedidoController;
 import br.com.bluesoft.desafio.api.dto.PedidoDto;
+import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.model.Fornecedor;
 import br.com.bluesoft.desafio.model.Pedido;
 import br.com.bluesoft.desafio.model.PedidoItem;
 import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.service.PedidoService;
-import br.com.bluesoft.desafio.test.AbstractTest;
 import br.com.bluesoft.desafio.util.Lists;
 import br.com.bluesoft.desafio.util.Sets;
 

@@ -2,8 +2,8 @@ package br.com.bluesoft.desafio.api.dto;
 
 import org.junit.Test;
 
+import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.model.Produto;
-import br.com.bluesoft.desafio.test.AbstractTest;
 
 public class ProdutoDtoTest extends AbstractTest {
 

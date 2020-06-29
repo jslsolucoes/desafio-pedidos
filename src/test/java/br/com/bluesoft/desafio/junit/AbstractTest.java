@@ -1,4 +1,4 @@
-package br.com.bluesoft.desafio.test;
+package br.com.bluesoft.desafio.junit;
 
 import java.util.Collection;
 import java.util.Map;
@@ -8,6 +8,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.mockito.Mockito;
 import org.mockito.stubbing.OngoingStubbing;
+import org.mockito.verification.VerificationMode;
 
 @SuppressWarnings("unchecked")
 public class AbstractTest {
@@ -22,6 +23,15 @@ public class AbstractTest {
 
     public <T> Matcher<T> is(T value) {
 	return Matchers.is(value);
+    }
+    
+    
+    public <T> T verify(T mock,VerificationMode verificationMode) {
+	return Mockito.verify(mock,verificationMode);
+    }
+    
+    public VerificationMode times(int wantedNumberOfInvocations) {
+	return Mockito.times(wantedNumberOfInvocations);
     }
     
     public String eq(String value) {

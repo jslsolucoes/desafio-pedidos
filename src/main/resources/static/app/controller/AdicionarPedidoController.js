@@ -45,8 +45,9 @@
                    });
                 }, function(response) {
                     SweetAlert.swal({
+                    	html: true,
                         title: 'Erro ao criar novo pedido',
-                        text: response.data.mensagem,
+                        text : '<span class="mensagem-erro">' + response.data.mensagem + '</span>',
                         type: 'error'
                     });
                 });

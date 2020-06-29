@@ -19,12 +19,12 @@
             <tbody>
                 <tr ng-repeat="produto in vm.produtos">
                     <td class="nome-produto">{{produto.nome}}</td>
-                    <td><input ng-model="produto.quantidade" ng-init="produto.quantidade = 0"  type="number" min="0" required /></td>
+                    <td><input id="{{produto.gtin}}" ng-model="produto.quantidade" ng-init="produto.quantidade = 0"  type="number" min="0" required /></td>
                 </tr>
             </tbody>
         </table>
 
-        <button type="submit" class="btn btn-primary pull-right">Enviar</button>
+        <button type="submit" class="btn btn-primary pull-right submeter-formulario">Enviar</button>
     </form>
 </body>
 </html>

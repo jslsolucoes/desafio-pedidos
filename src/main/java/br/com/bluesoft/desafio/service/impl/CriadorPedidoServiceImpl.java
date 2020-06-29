@@ -87,7 +87,7 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 	    return produtoRepository.buscarProdutoPorGtin(produto.getGtin())
 		    .orElseThrow(() -> new PedidoServiceException("Não foi possível encontrar produto com gtin"));
 	} catch (PedidoServiceException e) {
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(e.getMessage());
 	}
     }
 
@@ -119,7 +119,7 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 		    .comValor(melhorPreco).constroi();
 	    return Maps.entry(fornecedor, Lists.newArrayList(pedidoItem));
 	} catch (CotacaoServiceException e) {
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(e.getMessage());
 	}
     }
 

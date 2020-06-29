@@ -11,11 +11,11 @@ import br.com.bluesoft.desafio.junit.AbstractIntegrationTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProdutoControllerIT extends AbstractIntegrationTest {
+public class PedidoControllerIT extends AbstractIntegrationTest {
 
     @Test
-    public void listarProdutosDisponiveis() throws Exception {
-	AbstractIntegrationTest abstractIntegrationTest = navigateTo(urlBase).and();
+    public void criarNovoPedido() throws Exception {
+	AbstractIntegrationTest abstractIntegrationTest = navigateTo("/pedidos/novo").and();
 
 	assertEquals("Adicionar Pedido",
 		abstractIntegrationTest.until(ExpectedConditions.visibilityOfElementLocated(By.className("title")))
@@ -25,7 +25,16 @@ public class ProdutoControllerIT extends AbstractIntegrationTest {
 		.until(ExpectedConditions.visibilityOfElementLocated(By.className("nome-produto")))
 		.findElements(By.className("nome-produto")).stream()
 		.anyMatch(webElement -> webElement.getText().contains("ACHOCOLATADO NESCAU 2.0")));
-
     }
+    
+    @Test
+    public void listaPedidosDisponiveis() {
+	assertTrue(navigateTo("/pedidos").and()
+		.until(ExpectedConditions.visibilityOfElementLocated(By.className("nome-fornecedor")))
+		.findElements(By.className("nome-fornecedor")).stream()
+		.anyMatch(webElement -> webElement.getText().contains("Fornecedor 1")));
+    }
+
+   
 
 }

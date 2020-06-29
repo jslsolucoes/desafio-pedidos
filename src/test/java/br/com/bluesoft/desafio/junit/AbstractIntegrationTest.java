@@ -42,8 +42,12 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 	return this.webDriver;
     }
 
+    private String path(String path) {
+	return this.urlBase + "#!" + path;
+    }
+
     public AbstractIntegrationTest navigateTo(String url) {
-	webDriver.navigate().to(url);
+	webDriver.navigate().to("/".equals(url) ? "/" : path(url));
 	return this;
     }
 
@@ -55,11 +59,11 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 	new WebDriverWait(webDriver, 3).until(expectedCondition);
 	return this;
     }
-    
+
     public WebElement findElement(By by) {
 	return webDriver.findElement(by);
     }
-    
+
     public List<WebElement> findElements(By by) {
 	return webDriver.findElements(by);
     }
@@ -79,5 +83,4 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 	}
     }
 
-    
 }

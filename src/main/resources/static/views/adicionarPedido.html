@@ -5,7 +5,7 @@
     <title>Adicionar Pedido | Desafio Bluesoft</title>
 </head>
 <body>
-    <h3>Adicionar Pedido</h3>
+    <h3 class="title">Adicionar Pedido</h3>
     <hr />
 
     <form ng-submit="vm.salvarPedido()">
@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="produto in vm.produtos">
-                    <td>{{produto.nome}}</td>
+                    <td class="nome-produto">{{produto.nome}}</td>
                     <td><input ng-model="produto.quantidade" ng-init="produto.quantidade = 0"  type="number" min="0" required /></td>
                 </tr>
             </tbody>

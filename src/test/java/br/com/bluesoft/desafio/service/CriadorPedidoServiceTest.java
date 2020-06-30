@@ -18,6 +18,7 @@ import br.com.bluesoft.desafio.repository.FornecedorRepository;
 import br.com.bluesoft.desafio.repository.PedidoItemRepository;
 import br.com.bluesoft.desafio.repository.PedidoRepository;
 import br.com.bluesoft.desafio.repository.ProdutoRepository;
+import br.com.bluesoft.desafio.service.impl.CriadorPedidoServiceImpl;
 import br.com.bluesoft.desafio.util.Lists;
 
 @RunWith(SpringRunner.class)
@@ -44,6 +45,11 @@ public class CriadorPedidoServiceTest extends AbstractTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+    
+    @Test
+    public void construtor() {
+	assertNotNull(new CriadorPedidoServiceImpl());
+    }
 
     @Test
     public void semProdutos() throws PedidoServiceException {

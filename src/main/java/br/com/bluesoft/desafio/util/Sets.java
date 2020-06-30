@@ -24,15 +24,15 @@ public final class Sets {
 	if (set == null) {
 	    return newHashMutableSet();
 	}
-	return new HashMutableSet<T>(set);
+	return new HashMutableSet<>(set);
     }
 
     public static <T> MutableSet<T> newHashMutableSet() {
-	return new HashMutableSet<T>();
+	return new HashMutableSet<>();
     }
 
     public static <T> Set<T> newHashSet() {
-	return new HashSet<T>();
+	return new HashSet<>();
     }
 
     public static <T> Set<T> newHashSet(Set<T> set) {

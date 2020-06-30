@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.bluesoft.desafio.junit.AbstractTest;
+import br.com.bluesoft.desafio.model.Fornecedor;
 import br.com.bluesoft.desafio.model.Pedido;
 import br.com.bluesoft.desafio.util.Lists;
 
@@ -23,6 +24,9 @@ public class PedidoRepositoryTest extends AbstractTest {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
+
     @Test
     public void buscarPorTodosOsPedidosDisponiveis() {
 	List<Pedido> pedidos = pedidoRepository.buscarPorTodosOsPedidosDisponiveis();
@@ -31,7 +35,15 @@ public class PedidoRepositoryTest extends AbstractTest {
 	assertTrue(Lists.anyMatch(pedidos, (pedido) -> pedido.getId().equals(1L)
 		&& "00.000.000/00000-00".equals(pedido.getFornecedor().getCnpj())));
     }
-    
-    
+
+    @Test
+    public void criarNovoPedido() {
+	Pedido pedido = pedidoRepository.criarNovo(Pedido.Builder.novoBuilder()
+		.comFornecedor(fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(
+			Fornecedor.Builder.novoBuilder().comCnpj("12.112").comRazaoSocial("for2").constroi()))
+		.constroi());
+	assertNotNull(pedido);
+	assertNotNull(pedido.getId());
+    }
 
 }

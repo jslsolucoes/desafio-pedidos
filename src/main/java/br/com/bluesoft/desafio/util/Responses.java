@@ -10,14 +10,14 @@ public class Responses {
     }
 
     public static <T> ResponseEntity<T> notFound() {
-	return new ResponseEntity<T>(HttpStatus.NOT_FOUND);
+	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     public static <T> ResponseEntity<T> ok(T value) {
-	return new ResponseEntity<T>(value, HttpStatus.OK);
+	return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
     public static <T> ResponseEntity<T> ok() {
-	return new ResponseEntity<T>(HttpStatus.OK);
+	return new ResponseEntity<>(HttpStatus.OK);
     }
 }

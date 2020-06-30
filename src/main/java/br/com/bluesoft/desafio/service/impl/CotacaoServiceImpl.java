@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.model.bo.Cotacao;
+import br.com.bluesoft.desafio.service.ServiceRuntimeException;
 import br.com.bluesoft.desafio.service.CotacaoService;
 import br.com.bluesoft.desafio.service.CotacaoServiceException;
 import br.com.bluesoft.desafio.service.RestClientService;
@@ -62,12 +63,11 @@ public class CotacaoServiceImpl implements CotacaoService {
 			"Nenhum fornecedor encontrado para a quantidade solicitada do produto " + produto.getNome()));
     }
 
-    private Integer menorValor(Produto produto, Integer quantidade, Cotacao cotacao1, Cotacao cotacao2)
-	    throws RuntimeException {
+    private Integer menorValor(Produto produto, Integer quantidade, Cotacao cotacao1, Cotacao cotacao2) {
 	try {
 	    return cotacao1.getMelhorPreco(produto, quantidade).compareTo(cotacao2.getMelhorPreco(produto, quantidade));
-	} catch (Exception e) {
-	    throw new RuntimeException(e);
+	} catch (CotacaoServiceException e) {
+	    throw new ServiceRuntimeException(e.getMessage());
 	}
     }
 }

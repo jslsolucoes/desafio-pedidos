@@ -23,6 +23,7 @@ import br.com.bluesoft.desafio.service.CotacaoService;
 import br.com.bluesoft.desafio.service.CotacaoServiceException;
 import br.com.bluesoft.desafio.service.CriadorPedidoService;
 import br.com.bluesoft.desafio.service.PedidoServiceException;
+import br.com.bluesoft.desafio.service.ServiceRuntimeException;
 import br.com.bluesoft.desafio.util.Lists;
 import br.com.bluesoft.desafio.util.Maps;
 
@@ -56,10 +57,12 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 	    List<NovoPedido> novosPedidosValidados = validarNovosPedidos(novosPedidos);
 	    Map<Fornecedor, List<PedidoItem>> pedidosPorFornecedor = geraPedidosPorFornecedor(novosPedidosValidados);
 	    List<Pedido> pedidos = Lists.newArrayList();
-	    for (Fornecedor fornecedor : pedidosPorFornecedor.keySet()) {
+	    for (Entry<Fornecedor, List<PedidoItem>> pedidoPorFornecedor : pedidosPorFornecedor.entrySet()) {
+		Fornecedor fornecedor = pedidoPorFornecedor.getKey();
+		List<PedidoItem> itens = pedidoPorFornecedor.getValue();
 		Pedido pedido = pedidoRepository.criarNovo(Pedido.Builder.novoBuilder()
 			.comFornecedor(fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(fornecedor)).constroi());
-		for (PedidoItem pedidoItem : pedidosPorFornecedor.get(fornecedor)) {
+		for (PedidoItem pedidoItem : itens) {
 		    pedido.addItem(pedidoItemRepository.criarNovo(PedidoItem.Builder.novoBuilder()
 			    .comProduto(pedidoItem.getProduto()).comQuantidade(pedidoItem.getQuantidade())
 			    .comValor(pedidoItem.getValor()).comPedido(pedido).constroi()));
@@ -67,7 +70,7 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 		pedidos.add(pedido);
 	    }
 	    return pedidos;
-	} catch (Exception e) {
+	} catch (ServiceRuntimeException e) {
 	    throw new PedidoServiceException(e.getMessage());
 	}
     }
@@ -87,12 +90,11 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 	    return produtoRepository.buscarProdutoPorGtin(produto.getGtin())
 		    .orElseThrow(() -> new PedidoServiceException("Não foi possível encontrar produto com gtin"));
 	} catch (PedidoServiceException e) {
-	    throw new RuntimeException(e.getMessage());
+	    throw new ServiceRuntimeException(e.getMessage());
 	}
     }
 
-    private Map<Fornecedor, List<PedidoItem>> geraPedidosPorFornecedor(List<NovoPedido> novosPedidos)
-	    throws CotacaoServiceException {
+    private Map<Fornecedor, List<PedidoItem>> geraPedidosPorFornecedor(List<NovoPedido> novosPedidos) {
 
 	// Como a lista de itens pode ser muito longa o ideal é executá-la em paralelo
 	// e concorrentemente. A premissa de execução nesse caso é positivista e
@@ -119,7 +121,7 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 		    .comValor(melhorPreco).constroi();
 	    return Maps.entry(fornecedor, Lists.newArrayList(pedidoItem));
 	} catch (CotacaoServiceException e) {
-	    throw new RuntimeException(e.getMessage());
+	    throw new ServiceRuntimeException(e.getMessage());
 	}
     }
 

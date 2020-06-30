@@ -29,7 +29,7 @@ public class RestClientServiceImpl implements RestClientService {
     public <T> RestClientServiceResponseEntity<T> getForEntity(String url, Class<T> responseType,
 	    Map<String, ?> uriVariables) throws RestClientServiceException {
 	try {
-	    return new RestClientServiceResponseEntityImpl<T>(
+	    return new RestClientServiceResponseEntityImpl<>(
 		    restTemplate.getForEntity(url, responseType, uriVariables));
 	} catch (RestClientException e) {
 	    throw new RestClientServiceException(e);

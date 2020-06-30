@@ -28,12 +28,12 @@ public class Lists {
     }
 
     public static <T> List<T> newArrayList() {
-	return new ArrayList<T>();
+	return new ArrayList<>();
     }
 
     public static <T> List<T> newArrayList(Iterable<T> iterable) {
 	if (iterable == null) {
-	    return new ArrayList<T>();
+	    return new ArrayList<>();
 	}
 	return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
     }

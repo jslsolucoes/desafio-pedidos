@@ -25,6 +25,10 @@ public class AbstractTest {
 	return Matchers.is(value);
     }
     
+    public <T> Matcher<String> startsWith(String prefix) {
+  	return Matchers.startsWith(prefix);
+      }
+    
     
     public <T> T verify(T mock,VerificationMode verificationMode) {
 	return Mockito.verify(mock,verificationMode);
@@ -73,9 +77,17 @@ public class AbstractTest {
     public void assertNotNull(Object object) {
 	Assert.assertNotNull(object);
     }
+    
+    public void assertEquals(Integer expected, Integer actual) {
+   	Assert.assertEquals(expected, actual);
+    }
 
     public void assertEquals(int expected, int actual) {
 	Assert.assertEquals(expected, actual);
+    }
+    
+    public void assertNotEquals(int expected, int actual) {
+	Assert.assertNotEquals(expected, actual);
     }
 
     public void assertEquals(long expected, Object actual) {

@@ -34,6 +34,9 @@ public class FornecedorTest extends AbstractTest {
     public void verificarIgualidade() {
 	Fornecedor fornecedor = Fornecedor.Builder.novoBuilder().comCnpj("1234").comRazaoSocial("produto1").constroi();
 	Fornecedor fornecedor2 = Fornecedor.Builder.novoBuilder().comCnpj("1234").comRazaoSocial("produto2").constroi();
+	Fornecedor fornecedor3 = Fornecedor.Builder.novoBuilder().constroi();
+	assertFalse(fornecedor3.equals(fornecedor2));
+	assertTrue(fornecedor.equals(fornecedor));
 	assertTrue(fornecedor.equals(fornecedor2));
 	assertFalse(fornecedor.equals(null));
 	assertFalse(fornecedor.equals(new String("aee")));
@@ -44,6 +47,8 @@ public class FornecedorTest extends AbstractTest {
 	Fornecedor fornecedor = Fornecedor.Builder.novoBuilder().comCnpj("1234").comRazaoSocial("produto1").constroi();
 	Fornecedor fornecedor2 = Fornecedor.Builder.novoBuilder().comCnpj("1234").comRazaoSocial("produto1").constroi();
 	Fornecedor fornecedor3 = Fornecedor.Builder.novoBuilder().comCnpj("12345").comRazaoSocial("produto1").constroi();
+	Fornecedor fornecedor4 = Fornecedor.Builder.novoBuilder().constroi();
+	assertEquals(31,fornecedor4.hashCode());
 	assertEquals(fornecedor.hashCode(), fornecedor2.hashCode());
 	assertNotEquals(fornecedor2.hashCode(), fornecedor3.hashCode());
 	

@@ -14,17 +14,6 @@ public final class Maps {
 	return new HashMap<>();
     }
 
-    public static <K, V> boolean isEmpty(Map<K, V> map) {
-	return map == null || map.isEmpty();
-    }
-
-    public static <K, V> Map<K, V> newHashMap(Map<K, V> map) {
-	if (map == null) {
-	    return newHashMap();
-	}
-	return map;
-    }
-
     public static <K, V> Map.Entry<K, V> entry(K key, V value) {
 	return new AbstractMap.SimpleEntry<>(key, value);
     }

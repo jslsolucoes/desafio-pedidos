@@ -20,6 +20,7 @@ public final class Sets {
 	return new HashSet<>(Arrays.asList(elements));
     }
 
+    /*
     public static <T> MutableSet<T> newHashMutableSet(Set<T> set) {
 	if (set == null) {
 	    return newHashMutableSet();
@@ -30,6 +31,7 @@ public final class Sets {
     public static <T> MutableSet<T> newHashMutableSet() {
 	return new HashMutableSet<>();
     }
+    */
 
     public static <T> Set<T> newHashSet() {
 	return new HashSet<>();

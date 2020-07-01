@@ -1,8 +1,12 @@
 package br.com.bluesoft.desafio.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,7 +40,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_fornecedor")
     public Fornecedor fornecedor;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.PERSIST)
     @BatchSize(size = 50)
     private Set<PedidoItem> itens;
 
@@ -67,14 +71,15 @@ public class Pedido implements Serializable {
 	return itens;
     }
 
-    public Pedido addItem(PedidoItem pedidoItem) {
-	itens = Sets.newHashMutableSet(itens).addItem(pedidoItem);
-	return this;
+
+    public void setItens(Set<PedidoItem> itens) {
+	this.itens = itens;
     }
 
     public static class Builder {
 
 	private Fornecedor fornecedor;
+	private Set<PedidoItem> itens = Sets.newHashSet();
 
 	private Builder() {
 
@@ -83,6 +88,16 @@ public class Pedido implements Serializable {
 	public static Builder novoBuilder() {
 	    return new Builder();
 	}
+	
+	public Builder comItem(Produto produto,Integer quantidade,BigDecimal valor) {
+	    return comItem(PedidoItem.Builder.novoBuilder().comProduto(produto).comQuantidade(quantidade)
+		    	.comValor(valor).constroi());
+	}
+	
+	public Builder comItem(PedidoItem pedidoItem) {
+	    this.itens.add(pedidoItem);
+	    return this;
+	}
 
 	public Builder comFornecedor(Fornecedor fornecedor) {
 	    this.fornecedor = fornecedor;
@@ -90,7 +105,12 @@ public class Pedido implements Serializable {
 	}
 
 	public Pedido constroi() {
-	    return new Pedido(null, fornecedor, null);
+	    return new Pedido(null, fornecedor, itens);
+	}
+
+	public Builder comItens(Collection<PedidoItem> itens) {
+	    this.itens = new HashSet<>(itens);
+	    return this;
 	}
     }
 

@@ -16,7 +16,6 @@ import br.com.bluesoft.desafio.model.Produto;
 import br.com.bluesoft.desafio.model.bo.Cotacao;
 import br.com.bluesoft.desafio.model.bo.NovoPedido;
 import br.com.bluesoft.desafio.repository.FornecedorRepository;
-import br.com.bluesoft.desafio.repository.PedidoItemRepository;
 import br.com.bluesoft.desafio.repository.PedidoRepository;
 import br.com.bluesoft.desafio.repository.ProdutoRepository;
 import br.com.bluesoft.desafio.service.CotacaoService;
@@ -33,7 +32,6 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
     private PedidoRepository pedidoRepository;
     private CotacaoService cotacaoService;
     private FornecedorRepository fornecedorRepository;
-    private PedidoItemRepository pedidoItemRepository;
     private ProdutoRepository produtoRepository;
 
     public CriadorPedidoServiceImpl() {
@@ -42,12 +40,11 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 
     @Autowired
     public CriadorPedidoServiceImpl(PedidoRepository pedidoRepository, FornecedorRepository fornecedorRepository,
-	    ProdutoRepository produtoRepository, PedidoItemRepository pedidoItemRepository,
+	    ProdutoRepository produtoRepository,
 	    CotacaoService cotacaoService) {
 	this.pedidoRepository = pedidoRepository;
 	this.fornecedorRepository = fornecedorRepository;
 	this.produtoRepository = produtoRepository;
-	this.pedidoItemRepository = pedidoItemRepository;
 	this.cotacaoService = cotacaoService;
     }
 
@@ -58,15 +55,12 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 	    Map<Fornecedor, List<PedidoItem>> pedidosPorFornecedor = geraPedidosPorFornecedor(novosPedidosValidados);
 	    List<Pedido> pedidos = Lists.newArrayList();
 	    for (Entry<Fornecedor, List<PedidoItem>> pedidoPorFornecedor : pedidosPorFornecedor.entrySet()) {
-		Fornecedor fornecedor = pedidoPorFornecedor.getKey();
+		Fornecedor fornecedor = fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(pedidoPorFornecedor.getKey());
 		List<PedidoItem> itens = pedidoPorFornecedor.getValue();
 		Pedido pedido = pedidoRepository.criarNovo(Pedido.Builder.novoBuilder()
-			.comFornecedor(fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(fornecedor)).constroi());
-		for (PedidoItem pedidoItem : itens) {
-		    pedido.addItem(pedidoItemRepository.criarNovo(PedidoItem.Builder.novoBuilder()
-			    .comProduto(pedidoItem.getProduto()).comQuantidade(pedidoItem.getQuantidade())
-			    .comValor(pedidoItem.getValor()).comPedido(pedido).constroi()));
-		}
+			.comFornecedor(fornecedor)
+			.comItens(itens)
+			.constroi());
 		pedidos.add(pedido);
 	    }
 	    return pedidos;

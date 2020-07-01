@@ -55,9 +55,9 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 	    Map<Fornecedor, List<PedidoItem>> pedidosPorFornecedor = geraPedidosPorFornecedor(novosPedidosValidados);
 	    List<Pedido> pedidos = Lists.newArrayList();
 	    for (Entry<Fornecedor, List<PedidoItem>> pedidoPorFornecedor : pedidosPorFornecedor.entrySet()) {
-		Fornecedor fornecedor = fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(pedidoPorFornecedor.getKey());
+		Fornecedor fornecedor = buscarOuCriarFornecedor(pedidoPorFornecedor.getKey());
 		List<PedidoItem> itens = pedidoPorFornecedor.getValue();
-		Pedido pedido = pedidoRepository.criarNovo(Pedido.Builder.novoBuilder()
+		Pedido pedido = criarNovoPedido(Pedido.Builder.novoBuilder()
 			.comFornecedor(fornecedor)
 			.comItens(itens)
 			.constroi());
@@ -77,6 +77,14 @@ public class CriadorPedidoServiceImpl implements CriadorPedidoService {
 	return novosPedidos.stream().filter(novoPedido -> novoPedido.getQuantidade() > 0)
 		.map(novoPedido -> novoPedido.setProduto(buscarProduto(novoPedido.getProduto())))
 		.collect(Collectors.toList());
+    }
+    
+    private Pedido criarNovoPedido(Pedido pedido) {
+	return pedidoRepository.criarNovo(pedido);
+    }
+    
+    private Fornecedor buscarOuCriarFornecedor(Fornecedor fornecedor) {
+	return fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(fornecedor);
     }
 
     private Produto buscarProduto(Produto produto) {

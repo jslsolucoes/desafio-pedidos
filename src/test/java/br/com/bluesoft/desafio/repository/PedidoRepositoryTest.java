@@ -1,5 +1,6 @@
 package br.com.bluesoft.desafio.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.bluesoft.desafio.junit.AbstractTest;
 import br.com.bluesoft.desafio.model.Fornecedor;
 import br.com.bluesoft.desafio.model.Pedido;
+import br.com.bluesoft.desafio.service.ProdutoServiceException;
 import br.com.bluesoft.desafio.util.Lists;
 
 @RunWith(SpringRunner.class)
@@ -20,6 +22,9 @@ import br.com.bluesoft.desafio.util.Lists;
 @Transactional
 @Rollback
 public class PedidoRepositoryTest extends AbstractTest {
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -37,13 +42,17 @@ public class PedidoRepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void criarNovoPedido() {
+    public void criarNovoPedido() throws ProdutoServiceException {
 	Pedido pedido = pedidoRepository.criarNovo(Pedido.Builder.novoBuilder()
 		.comFornecedor(fornecedorRepository.criarUmNovoFornecedorSeNaoExistir(
 			Fornecedor.Builder.novoBuilder().comCnpj("12.112").comRazaoSocial("for2").constroi()))
+		.comItem(produtoRepository.buscarProdutoPorGtin("7894900011517")
+			.orElseThrow(() -> new ProdutoServiceException("Não achei produto")), 1, BigDecimal.TEN)
 		.constroi());
 	assertNotNull(pedido);
 	assertNotNull(pedido.getId());
+	assertNotNull(pedido.getItens());
+	assertEquals(1, pedido.getItens().size());
     }
 
 }
